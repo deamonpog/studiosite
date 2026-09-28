@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/sections/Hero.astro';
-import WavyBox from '../components/sections/WavyBox.astro';
 import Gallery from '../components/sections/Gallery.astro';
 import { Image } from 'astro:assets';
 import logo from '../assets/logo/abcn-primary-logo.png';
@@ -13,17 +12,7 @@ import { siteMeta } from '../data/site';
     <Image slot="media" src={logo} alt={siteMeta.name} widths={[400, 800]} sizes="(min-width: 40rem) 32rem, 90vw" />
   </Hero>
 
-  <section class="wrap">
-    <WavyBox shape="blob-a" tone="tint" leaves>
-      <p class="statement">
-        Jungle Spirit Studios, where dreams and stories become <br />
-        a) an adventure, b) something you can play.
-      </p>
-    </WavyBox>
-  </section>
-
   <section class="wrap artwork">
-    <h2>Art Work / Characters / Animations</h2>
     <Gallery
       items={[
         { label: 'Concept art' },
@@ -35,18 +24,7 @@ import { siteMeta } from '../data/site';
 </BaseLayout>
 
 <style>
-  .statement {
-    font-size: clamp(1.15rem, 2.5vw, 1.5rem);
-    text-align: center;
-    margin: 0;
-  }
-
   .artwork {
     padding-block: 3rem;
-    text-align: center;
-  }
-
-  .artwork h2 {
-    margin-bottom: 1.5rem;
   }
 </style>
