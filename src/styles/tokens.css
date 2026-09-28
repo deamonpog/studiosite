@@ -6,9 +6,19 @@
   --color-cloud: #e3e3e3; /* slightly deeper gray tint, box background / borders */
   --color-gray: #737373; /* muted text (placeholder labels, taglines, captions) */
 
+  /* Logo palette — reserved for decorative accents (leaves, branches), not site chrome */
+  --logo-teal-dark: #033c42;
+  --logo-turquoise: #09f0cd;
+  --logo-yellow: #fff507;
+  --logo-orange: #ff8215;
+  --logo-green: #94cc03;
+  --logo-brown: #7a4a1e;
+  --logo-olive: #4a5a1e;
+
   /* Fonts */
   --font-display: 'Iceberg', system-ui, sans-serif;
   --font-body: 'Exo 2', system-ui, sans-serif;
+  --font-tagline: 'Ruthie', var(--font-display);
 
   /* Layout */
   --content-width: 72rem;

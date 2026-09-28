@@ -1,0 +1,27 @@
+---
+interface Props {
+  color?: string;
+  stroke?: string;
+  class?: string;
+}
+
+const { color = 'var(--logo-green)', stroke = 'var(--logo-teal-dark)', class: className } = Astro.props;
+---
+
+<svg
+  class={className}
+  viewBox="0 0 64 72"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-hidden="true"
+>
+  <path
+    d="M8 56C6 34 20 10 54 6c4 26-10 46-32 50-6 1.2-11.5.8-14 0Z"
+    fill={color}
+    stroke={stroke}
+    stroke-width="2.5"
+    stroke-linejoin="round"
+  />
+  <path d="M15 54Q30 34 48 12" stroke={stroke} stroke-width="1.5" stroke-linecap="round" />
+  <path d="M15 55Q10 60 9 66" stroke={stroke} stroke-width="2.5" stroke-linecap="round" />
+</svg>

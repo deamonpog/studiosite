@@ -2,9 +2,20 @@
 import '@fontsource/iceberg/400.css';
 import '@fontsource/exo-2/400.css';
 import '@fontsource/exo-2/700.css';
+import '@fontsource/new-rocker/400.css';
+import '@fontsource/henny-penny/400.css';
+import '@fontsource/bubblegum-sans/400.css';
+import '@fontsource/fleur-de-leah/400.css';
+import '@fontsource/love-light/400.css';
+import '@fontsource/puppies-play/400.css';
+import '@fontsource/updock/400.css';
+import '@fontsource/estonia/400.css';
+import '@fontsource/ruthie/400.css';
+import '@fontsource/princess-sofia/400.css';
 import '../styles/global.css';
 import SiteNav from '../components/nav/SiteNav.astro';
 import SiteFooter from '../components/nav/SiteFooter.astro';
+import FallingLeaves from '../components/decor/FallingLeaves.astro';
 import { siteMeta } from '../data/site';
 
 interface Props {
@@ -29,6 +40,7 @@ const pageTitle = title === siteMeta.name ? title : `${title} · ${siteMeta.name
     <title>{pageTitle}</title>
   </head>
   <body>
+    <FallingLeaves />
     <SiteNav />
     <main>
       <slot />

@@ -12,8 +12,18 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@fontsource/bubblegum-sans": "^5.3.0",
+    "@fontsource/estonia": "^5.3.0",
     "@fontsource/exo-2": "^5.3.0",
+    "@fontsource/fleur-de-leah": "^5.3.0",
+    "@fontsource/henny-penny": "^5.3.0",
     "@fontsource/iceberg": "^5.3.0",
+    "@fontsource/love-light": "^5.3.0",
+    "@fontsource/new-rocker": "^5.3.0",
+    "@fontsource/princess-sofia": "^5.3.0",
+    "@fontsource/puppies-play": "^5.3.0",
+    "@fontsource/ruthie": "^5.3.0",
+    "@fontsource/updock": "^5.3.0",
     "astro": "^7.3.5"
   },
   "allowScripts": {

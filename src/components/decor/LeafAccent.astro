@@ -1,36 +1,20 @@
 ---
+import LeafShape from './LeafShape.astro';
+
 interface Props {
   corner?: 'tl' | 'tr' | 'bl' | 'br';
   color?: string;
+  stroke?: string;
   rotate?: number;
   size?: string;
 }
 
-const { corner = 'tr', color = 'var(--color-paper)', rotate = 0, size = '3.5rem' } = Astro.props;
+const { corner = 'tr', color, stroke, rotate = 0, size = '3.5rem' } = Astro.props;
 ---
 
-<svg
-  class={`leaf leaf-${corner}`}
-  style={{ width: size, height: size, transform: `rotate(${rotate}deg)` }}
-  viewBox="0 0 64 64"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
-  aria-hidden="true"
->
-  <path
-    d="M8 56C6 34 20 10 54 6c4 26-10 46-32 50-6 1.2-11.5.8-14 0Z"
-    fill={color}
-    stroke="var(--color-ink)"
-    stroke-width="2.5"
-    stroke-linejoin="round"
-  />
-  <path
-    d="M12 52C20 38 30 24 50 10"
-    stroke="var(--color-ink)"
-    stroke-width="2"
-    stroke-linecap="round"
-  />
-</svg>
+<div class={`leaf leaf-${corner}`} style={{ width: size, height: size, transform: `rotate(${rotate}deg)` }}>
+  <LeafShape color={color} stroke={stroke} />
+</div>
 
 <style>
   .leaf {
