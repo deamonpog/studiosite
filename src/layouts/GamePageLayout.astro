@@ -12,6 +12,7 @@ interface GameData {
   tagline: string;
   summary: string;
   platform: 'multi' | 'mobile';
+  heroImage?: string;
   screenshots: string[];
   storeLinks: { playStore?: string; appStore?: string };
   devNotes: { image?: string; caption: string }[];
@@ -20,14 +21,20 @@ interface GameData {
 interface Props {
   game: GameData;
   hasExtraBox?: boolean;
+  screenshotBoxColor?: string;
+  extraBoxColor?: string;
 }
 
-const { game, hasExtraBox = false } = Astro.props;
+const { game, hasExtraBox = false, screenshotBoxColor, extraBoxColor } = Astro.props;
 ---
 
 <BaseLayout title={game.title} description={game.summary}>
   <Hero heading={game.title} layout="split">
-    <PlaceholderBlock slot="media" label={game.tagline} aspectRatio="16 / 10" />
+    {game.heroImage ? (
+      <img slot="media" src={game.heroImage} alt={game.title} class="hero-image" />
+    ) : (
+      <PlaceholderBlock slot="media" label={game.tagline} aspectRatio="16 / 10" />
+    )}
   </Hero>
 
   <section class="wrap summary">
@@ -35,11 +42,11 @@ const { game, hasExtraBox = false } = Astro.props;
   </section>
 
   <section class:list={['wrap', 'boxes', { 'boxes-single': !hasExtraBox }]}>
-    <WavyBox shape="rect" tone="tint">
+    <WavyBox shape="rect" tone="tint" borderColor={screenshotBoxColor}>
       <ScreenshotCarousel screenshots={game.screenshots} />
     </WavyBox>
     {hasExtraBox && (
-      <WavyBox shape="rect" tone="soft">
+      <WavyBox shape="rect" tone="soft" borderColor={extraBoxColor}>
         <slot name="extra-box" />
       </WavyBox>
     )}
@@ -58,6 +65,14 @@ const { game, hasExtraBox = false } = Astro.props;
 </BaseLayout>
 
 <style>
+  .hero-image {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: 0.75rem;
+    border: 2px solid var(--color-ink);
+  }
+
   .summary {
     max-width: 60ch;
     text-align: center;

@@ -8,6 +8,11 @@ if (!entry) throw new Error('Missing tropicards content entry');
 const game = entry.data;
 ---
 
-<GamePageLayout game={game} hasExtraBox>
+<GamePageLayout
+  game={game}
+  hasExtraBox
+  screenshotBoxColor="var(--logo-turquoise)"
+  extraBoxColor="var(--logo-orange)"
+>
   <SuitsTeaser slot="extra-box" suits={game.suits} />
 </GamePageLayout>

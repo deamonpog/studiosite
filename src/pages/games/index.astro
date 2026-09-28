@@ -5,6 +5,12 @@ import PlaceholderBlock from '../../components/decor/PlaceholderBlock.astro';
 import { getCollection } from 'astro:content';
 
 const games = await getCollection('games');
+
+// Per-game card border/shadow color — add an entry here for any new game.
+const cardColors: Record<string, string> = {
+  tropicards: 'var(--logo-orange)',
+  'buggy-rescue': 'var(--logo-turquoise)',
+};
 ---
 
 <BaseLayout title="Games" description="Games currently in development at ABCN Studios.">
@@ -14,8 +20,12 @@ const games = await getCollection('games');
       {
         games.map((game) => (
           <a class="card-link" href={`/games/${game.id}/`}>
-            <WavyBox shape="rect" tone="tint">
-              <PlaceholderBlock label={game.data.tagline} aspectRatio="16 / 10" />
+            <WavyBox shape="rect" tone="tint" borderColor={cardColors[game.id]} shadowColor="var(--color-ink)">
+              {game.data.heroImage ? (
+                <img src={game.data.heroImage} alt={game.data.title} class="card-image" />
+              ) : (
+                <PlaceholderBlock label={game.data.tagline} aspectRatio="16 / 10" />
+              )}
               <h2>{game.data.title}</h2>
               <p>{game.data.summary}</p>
             </WavyBox>
@@ -42,7 +52,19 @@ const games = await getCollection('games');
   .card-link {
     text-decoration: none;
     color: inherit;
-    display: block;
+    display: flex;
+  }
+
+  .card-link :global(.wavy-box) {
+    flex: 1;
+  }
+
+  .card-image {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: 0.75rem;
+    border: 2px solid var(--color-ink);
   }
 
   .card-link h2 {
