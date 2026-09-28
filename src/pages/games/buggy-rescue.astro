@@ -1,0 +1,10 @@
+---
+import GamePageLayout from '../../layouts/GamePageLayout.astro';
+import { getEntry } from 'astro:content';
+
+const entry = await getEntry('games', 'buggy-rescue');
+if (!entry) throw new Error('Missing buggy-rescue content entry');
+const game = entry.data;
+---
+
+<GamePageLayout game={game} />

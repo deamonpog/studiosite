@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WavyBox from '../../components/sections/WavyBox.astro';
+import PlaceholderBlock from '../../components/decor/PlaceholderBlock.astro';
+import { getCollection } from 'astro:content';
+
+const games = await getCollection('games');
+---
+
+<BaseLayout title="Games" description="Games currently in development at ABCN Studios.">
+  <section class="wrap games-hub">
+    <h1>Our Games</h1>
+    <div class="grid">
+      {
+        games.map((game) => (
+          <a class="card-link" href={`/games/${game.id}/`}>
+            <WavyBox shape="rect" tone="tint">
+              <PlaceholderBlock label={game.data.tagline} aspectRatio="16 / 10" />
+              <h2>{game.data.title}</h2>
+              <p>{game.data.summary}</p>
+            </WavyBox>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .games-hub {
+    padding-block: 3rem;
+    text-align: center;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    gap: 2.5rem;
+    margin-top: 2rem;
+  }
+
+  .card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .card-link h2 {
+    margin-top: 1rem;
+  }
+
+  .card-link p {
+    margin-bottom: 0;
+  }
+</style>

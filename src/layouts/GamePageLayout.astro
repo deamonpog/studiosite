@@ -1,0 +1,97 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import WavyBox from '../components/sections/WavyBox.astro';
+import PlaceholderBlock from '../components/decor/PlaceholderBlock.astro';
+import ScreenshotCarousel from '../components/sections/ScreenshotCarousel.astro';
+import StoreLinks from '../components/sections/StoreLinks.astro';
+import DevNotes from '../components/sections/DevNotes.astro';
+
+interface GameData {
+  title: string;
+  tagline: string;
+  summary: string;
+  platform: 'multi' | 'mobile';
+  screenshots: string[];
+  storeLinks: { playStore?: string; appStore?: string };
+  devNotes: { image?: string; caption: string }[];
+}
+
+interface Props {
+  game: GameData;
+  hasExtraBox?: boolean;
+}
+
+const { game, hasExtraBox = false } = Astro.props;
+---
+
+<BaseLayout title={game.title} description={game.summary}>
+  <Hero heading={game.title} layout="split">
+    <PlaceholderBlock slot="media" label={game.tagline} aspectRatio="16 / 10" />
+  </Hero>
+
+  <section class="wrap summary">
+    <p>{game.summary}</p>
+  </section>
+
+  <section class:list={['wrap', 'boxes', { 'boxes-single': !hasExtraBox }]}>
+    <WavyBox shape="rect" tone="tint">
+      <ScreenshotCarousel screenshots={game.screenshots} />
+    </WavyBox>
+    {hasExtraBox && (
+      <WavyBox shape="rect" tone="soft">
+        <slot name="extra-box" />
+      </WavyBox>
+    )}
+  </section>
+
+  <section class="wrap store-section">
+    <h2>{game.platform === 'mobile' ? 'Get it on mobile' : 'Play store / Apple store links'}</h2>
+    <StoreLinks playStore={game.storeLinks.playStore} appStore={game.storeLinks.appStore} />
+  </section>
+
+  <section class="wrap dev-section">
+    <h2>Development</h2>
+    <p class="dev-hint">Ex: Early sketches / notes / ideas</p>
+    <DevNotes notes={game.devNotes} />
+  </section>
+</BaseLayout>
+
+<style>
+  .summary {
+    max-width: 60ch;
+    text-align: center;
+    margin-inline: auto;
+    padding-bottom: 1rem;
+  }
+
+  .boxes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+    padding-block: 2rem;
+  }
+
+  .boxes-single {
+    grid-template-columns: 1fr;
+    max-width: 34rem;
+  }
+
+  @media (max-width: 45rem) {
+    .boxes {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .store-section,
+  .dev-section {
+    text-align: center;
+    padding-block: 2.5rem;
+  }
+
+  .dev-hint {
+    opacity: 0.6;
+    font-style: italic;
+    margin-top: -0.5rem;
+  }
+</style>

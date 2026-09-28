@@ -1,0 +1,86 @@
+---
+import LeafAccent from '../decor/LeafAccent.astro';
+
+interface Props {
+  shape?: 'rect' | 'blob-a' | 'blob-b' | 'blob-c' | 'blob-round';
+  tone?: 'soft' | 'tint' | 'white';
+  rotate?: number;
+  leaves?: boolean;
+  class?: string;
+}
+
+const {
+  shape = 'rect',
+  tone = 'white',
+  rotate,
+  leaves = false,
+  class: className,
+} = Astro.props;
+
+const defaultRotation: Record<string, number> = {
+  rect: 0,
+  'blob-a': -0.6,
+  'blob-b': 0.5,
+  'blob-c': -0.4,
+  'blob-round': -0.3,
+};
+
+const angle = rotate ?? defaultRotation[shape];
+---
+
+<div
+  class:list={['wavy-box', `shape-${shape}`, `tone-${tone}`, className]}
+  style={{ '--rotate': `${angle}deg` }}
+>
+  {leaves && <LeafAccent corner="tl" rotate={-15} />}
+  {leaves && <LeafAccent corner="br" color="var(--color-mist)" rotate={20} />}
+  <div class="wavy-box-inner">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .wavy-box {
+    position: relative;
+    border: var(--border-thick) solid var(--color-ink);
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-ink);
+    transform: rotate(var(--rotate));
+    padding: clamp(1.5rem, 4vw, 2.75rem);
+  }
+
+  .wavy-box-inner {
+    transform: rotate(calc(var(--rotate) * -1));
+  }
+
+  .shape-rect {
+    border-radius: 1.5rem;
+  }
+
+  .shape-blob-a {
+    border-radius: 68% 32% 58% 42% / 42% 46% 54% 58%;
+  }
+
+  .shape-blob-b {
+    border-radius: 38% 62% 45% 55% / 60% 38% 62% 40%;
+  }
+
+  .shape-blob-c {
+    border-radius: 55% 45% 65% 35% / 35% 55% 45% 65%;
+  }
+
+  .shape-blob-round {
+    border-radius: 34% 30% 36% 32% / 32% 36% 30% 34%;
+  }
+
+  .tone-soft {
+    background: var(--color-cloud);
+  }
+
+  .tone-tint {
+    background: var(--color-mist);
+  }
+
+  .tone-white {
+    background: var(--color-paper);
+  }
+</style>

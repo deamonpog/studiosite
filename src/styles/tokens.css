@@ -1,0 +1,18 @@
+:root {
+  /* Black & white palette */
+  --color-ink: #121212; /* primary text, outlines, dark sections */
+  --color-paper: #ffffff; /* page background, white box tone */
+  --color-mist: #f2f2f2; /* light gray tint, box background */
+  --color-cloud: #e3e3e3; /* slightly deeper gray tint, box background / borders */
+  --color-gray: #737373; /* muted text (placeholder labels, taglines, captions) */
+
+  /* Fonts */
+  --font-display: 'Iceberg', system-ui, sans-serif;
+  --font-body: 'Exo 2', system-ui, sans-serif;
+
+  /* Layout */
+  --content-width: 72rem;
+  --nav-height: 4.5rem;
+  --border-thick: 3px;
+  --shadow-offset: 6px;
+}

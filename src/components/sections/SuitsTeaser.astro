@@ -1,0 +1,64 @@
+---
+import PlaceholderBlock from '../decor/PlaceholderBlock.astro';
+
+interface Suit {
+  name?: string;
+  description?: string;
+  image?: string;
+}
+
+interface Props {
+  suits: Suit[];
+}
+
+const { suits } = Astro.props;
+const slots: Array<Suit | null> = Array.from({ length: 4 }, (_, i) => suits[i] ?? null);
+---
+
+<div class="suits-teaser">
+  {
+    slots.map((suit) =>
+      suit?.name ? (
+        <div class="suit-card">
+          {suit.image ? (
+            <img src={suit.image} alt={suit.name} />
+          ) : (
+            <PlaceholderBlock label={suit.name} aspectRatio="1 / 1" />
+          )}
+          <p>{suit.name}</p>
+        </div>
+      ) : (
+        <div class="suit-card">
+          <PlaceholderBlock label="Suit — coming soon" aspectRatio="1 / 1" />
+        </div>
+      ),
+    )
+  }
+</div>
+
+<style>
+  .suits-teaser {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .suit-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .suit-card img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 0.75rem;
+    border: 2px solid var(--color-ink);
+  }
+
+  .suit-card p {
+    margin: 0;
+  }
+</style>

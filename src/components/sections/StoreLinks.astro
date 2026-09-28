@@ -1,0 +1,63 @@
+---
+interface Props {
+  playStore?: string;
+  appStore?: string;
+}
+
+const { playStore, appStore } = Astro.props;
+
+const stores = [
+  { label: 'Google Play', href: playStore },
+  { label: 'App Store', href: appStore },
+];
+---
+
+<div class="store-links">
+  {
+    stores.map((store) =>
+      store.href ? (
+        <a class="badge" href={store.href} target="_blank" rel="noopener noreferrer">
+          {store.label}
+        </a>
+      ) : (
+        <span class="badge is-disabled" aria-disabled="true">
+          {store.label} · Coming Soon
+        </span>
+      ),
+    )
+  }
+</div>
+
+<style>
+  .store-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.6rem 1.4rem;
+    border-radius: 999px;
+    border: 2px solid var(--color-ink);
+    text-decoration: none;
+    color: var(--color-ink);
+    background: var(--color-paper);
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .badge:hover {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  .badge.is-disabled {
+    background: transparent;
+    color: var(--color-gray);
+    border-color: var(--color-cloud);
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+</style>

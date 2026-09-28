@@ -1,0 +1,13 @@
+---
+import GamePageLayout from '../../layouts/GamePageLayout.astro';
+import SuitsTeaser from '../../components/sections/SuitsTeaser.astro';
+import { getEntry } from 'astro:content';
+
+const entry = await getEntry('games', 'tropicards');
+if (!entry) throw new Error('Missing tropicards content entry');
+const game = entry.data;
+---
+
+<GamePageLayout game={game} hasExtraBox>
+  <SuitsTeaser slot="extra-box" suits={game.suits} />
+</GamePageLayout>

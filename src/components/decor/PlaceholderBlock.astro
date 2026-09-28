@@ -1,0 +1,32 @@
+---
+interface Props {
+  label: string;
+  aspectRatio?: string;
+  class?: string;
+}
+
+const { label, aspectRatio = '4 / 3', class: className } = Astro.props;
+---
+
+<div class:list={['placeholder', className]} style={{ aspectRatio }}>
+  <span>{label}</span>
+</div>
+
+<style>
+  .placeholder {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    border: 2px dashed var(--color-ink);
+    border-radius: 0.75rem;
+    background: var(--color-mist);
+    color: var(--color-ink);
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .placeholder span {
+    opacity: 0.75;
+    font-size: 0.95rem;
+  }
+</style>

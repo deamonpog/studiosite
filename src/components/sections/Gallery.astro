@@ -1,0 +1,42 @@
+---
+import PlaceholderBlock from '../decor/PlaceholderBlock.astro';
+
+interface GalleryItem {
+  label: string;
+  image?: string;
+}
+
+interface Props {
+  items: GalleryItem[];
+  aspectRatio?: string;
+}
+
+const { items, aspectRatio = '4 / 3' } = Astro.props;
+---
+
+<div class="gallery">
+  {
+    items.map((item) =>
+      item.image ? (
+        <img src={item.image} alt={item.label} style={{ aspectRatio }} />
+      ) : (
+        <PlaceholderBlock label={item.label} aspectRatio={aspectRatio} />
+      ),
+    )
+  }
+</div>
+
+<style>
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+    gap: 1.25rem;
+  }
+
+  .gallery img {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 0.75rem;
+    border: 2px solid var(--color-ink);
+  }
+</style>

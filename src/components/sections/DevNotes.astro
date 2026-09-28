@@ -1,0 +1,65 @@
+---
+import PlaceholderBlock from '../decor/PlaceholderBlock.astro';
+
+interface Note {
+  image?: string;
+  caption: string;
+}
+
+interface Props {
+  notes: Note[];
+}
+
+const { notes } = Astro.props;
+const items: Note[] =
+  notes.length > 0
+    ? notes
+    : [
+        { caption: 'Early sketches' },
+        { caption: 'Notes' },
+        { caption: 'Ideas' },
+      ];
+---
+
+<div class="dev-notes">
+  {
+    items.map((note) => (
+      <figure>
+        {note.image ? (
+          <img src={note.image} alt={note.caption} />
+        ) : (
+          <PlaceholderBlock label="Image coming soon" aspectRatio="4 / 3" />
+        )}
+        <figcaption>{note.caption}</figcaption>
+      </figure>
+    ))
+  }
+</div>
+
+<style>
+  .dev-notes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+    gap: 1.25rem;
+  }
+
+  .dev-notes figure {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .dev-notes img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 0.75rem;
+    border: 2px solid var(--color-ink);
+  }
+
+  .dev-notes figcaption {
+    text-align: center;
+    color: var(--color-gray);
+  }
+</style>

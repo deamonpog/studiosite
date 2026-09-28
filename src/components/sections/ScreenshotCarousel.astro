@@ -1,0 +1,97 @@
+---
+import PlaceholderBlock from '../decor/PlaceholderBlock.astro';
+
+interface Props {
+  screenshots: string[];
+}
+
+const { screenshots } = Astro.props;
+const slides = screenshots.length > 0 ? screenshots : [null, null, null];
+---
+
+<div class="carousel">
+  <div class="track" data-carousel-track>
+    {
+      slides.map((src, i) =>
+        src ? (
+          <img class="slide" src={src} alt={`Screenshot ${i + 1}`} />
+        ) : (
+          <div class="slide">
+            <PlaceholderBlock label="Screen Shot Slide show" aspectRatio="9 / 16" />
+          </div>
+        ),
+      )
+    }
+  </div>
+  <div class="controls">
+    <button type="button" data-carousel-prev aria-label="Previous screenshot">‹</button>
+    <button type="button" data-carousel-next aria-label="Next screenshot">›</button>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.carousel').forEach((carousel) => {
+    const track = carousel.querySelector<HTMLElement>('[data-carousel-track]');
+    const prev = carousel.querySelector<HTMLButtonElement>('[data-carousel-prev]');
+    const next = carousel.querySelector<HTMLButtonElement>('[data-carousel-next]');
+    if (!track || !prev || !next) return;
+
+    const scrollByOneSlide = (direction: 1 | -1) => {
+      const slide = track.querySelector<HTMLElement>('.slide');
+      const amount = (slide?.offsetWidth ?? track.offsetWidth) + 16;
+      track.scrollBy({ left: amount * direction, behavior: 'smooth' });
+    };
+
+    prev.addEventListener('click', () => scrollByOneSlide(-1));
+    next.addEventListener('click', () => scrollByOneSlide(1));
+  });
+</script>
+
+<style>
+  .carousel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .track {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 0.25rem;
+  }
+
+  .slide {
+    flex: 0 0 auto;
+    width: min(12rem, 70%);
+    scroll-snap-align: center;
+  }
+
+  .slide img {
+    width: 100%;
+    border-radius: 0.75rem;
+    border: 2px solid var(--color-ink);
+  }
+
+  .controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .controls button {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 999px;
+    border: 2px solid var(--color-ink);
+    background: var(--color-paper);
+    font-size: 1.25rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .controls button:hover {
+    background: var(--color-mist);
+  }
+</style>

@@ -1,0 +1,67 @@
+---
+import { contact } from '../../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <section id="contact" class="wrap contact-block">
+    <h2>{contact.companyName}</h2>
+    <p class="full-name">{contact.fullName}</p>
+    <address>
+      {contact.addressLines.map((line) => <span>{line}</span>)}
+      <a href={`mailto:${contact.email}`}>{contact.email}</a>
+    </address>
+    <p class="copyright">© {year} {contact.companyName}</p>
+  </section>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-ink);
+    color: var(--color-paper);
+    margin-top: 4rem;
+  }
+
+  .contact-block {
+    padding: 3rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .contact-block h2 {
+    color: var(--color-paper);
+    margin: 0;
+  }
+
+  .full-name {
+    margin: 0 0 0.75rem;
+    color: var(--color-cloud);
+    font-family: var(--font-display);
+  }
+
+  address {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-style: normal;
+    font-family: var(--font-display);
+  }
+
+  address a {
+    color: var(--color-paper);
+    text-decoration: underline;
+    width: fit-content;
+  }
+
+  address a:hover {
+    color: var(--color-cloud);
+  }
+
+  .copyright {
+    margin: 1.5rem 0 0;
+    color: var(--color-cloud);
+    font-size: 0.9rem;
+  }
+</style>

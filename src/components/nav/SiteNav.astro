@@ -1,0 +1,108 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../../assets/logo/abcn-primary-logo.png';
+import { navLinks, siteMeta } from '../../data/site';
+import BonfireIcon from '../icons/BonfireIcon.astro';
+---
+
+<header class="site-nav">
+  <nav class="wrap nav-inner" aria-label="Primary">
+    <a href="/" class="brand" aria-label={`${siteMeta.name} — Home`}>
+      <Image src={logo} alt="" width={192} height={88} class="brand-logo" />
+    </a>
+    <ul class="nav-links">
+      {
+        navLinks.map((link) => (
+          <li>
+            <a href={link.href}>{link.label}</a>
+          </li>
+        ))
+      }
+    </ul>
+    <div class="nav-icons">
+      <a href="#contact" class="icon-btn" aria-label="Contact us">
+        <BonfireIcon />
+      </a>
+    </div>
+  </nav>
+</header>
+
+<style>
+  .site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    height: var(--nav-height);
+    background: var(--color-paper);
+    border-bottom: var(--border-thick) solid var(--color-ink);
+  }
+
+  .nav-inner {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    flex-shrink: 0;
+  }
+
+  .brand-logo {
+    display: block;
+    width: 6rem;
+    height: 2.75rem;
+    object-fit: contain;
+    object-position: left center;
+  }
+
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.75rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-links a {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    text-decoration: none;
+    color: var(--color-ink);
+  }
+
+  .nav-links a:hover {
+    text-decoration: underline;
+  }
+
+  .nav-icons {
+    display: flex;
+    gap: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  .icon-btn {
+    width: 2.75rem;
+    height: 2.75rem;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    border: 2px solid var(--color-ink);
+    background: var(--color-mist);
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+
+  .icon-btn:hover {
+    background: var(--color-cloud);
+    transform: translateY(-2px);
+  }
+
+  .icon-btn :global(svg) {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+</style>

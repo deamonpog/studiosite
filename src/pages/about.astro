@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WavyBox from '../components/sections/WavyBox.astro';
+---
+
+<BaseLayout
+  title="About"
+  description="ABCN Studios is a game development studio based in Sri Lanka, driven by passion to create original interactive entertainment and immersive experiences through creativity and storytelling."
+>
+  <section class="wrap about">
+    <h1>About ABCN Studios</h1>
+
+    <WavyBox shape="blob-round" tone="tint" leaves class="about-box">
+      <p>
+        ABCN Studios is a game development studio based in Sri Lanka, driven by passion to
+        create original interactive entertainment and immersive experiences through creativity
+        and storytelling.
+      </p>
+      <p>
+        At the heart of the studio's journey is its first game, with several other projects
+        quietly taking shape alongside it. Each project carries a different idea, a different
+        world, and a glimpse of what ABCN Studios aims to become.
+      </p>
+      <p>
+        We create games born from imagination and built with passion and love. Combining
+        artistic creativity with modern technology, we craft original experiences shaped by
+        beautiful worlds, engaging gameplay, immersive atmosphere, and stories that leave a
+        lasting impression.
+      </p>
+    </WavyBox>
+  </section>
+</BaseLayout>
+
+<style>
+  .about {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+    padding-block: 3rem;
+    text-align: center;
+  }
+
+  .about h1 {
+    margin-bottom: 0;
+  }
+
+  .about :global(.about-box) {
+    max-width: 36rem;
+    padding: clamp(2.5rem, 7vw, 4rem) clamp(2.25rem, 7vw, 3.5rem);
+  }
+
+  :global(.about-box) p {
+    font-size: 1.05rem;
+  }
+
+  :global(.about-box) p + p {
+    margin-top: 1.5rem;
+  }
+</style>
