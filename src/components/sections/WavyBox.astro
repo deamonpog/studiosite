@@ -6,6 +6,8 @@ interface Props {
   tone?: 'soft' | 'tint' | 'white';
   rotate?: number;
   leaves?: boolean;
+  borderColor?: string;
+  shadowColor?: string;
   class?: string;
 }
 
@@ -14,6 +16,8 @@ const {
   tone = 'white',
   rotate,
   leaves = false,
+  borderColor,
+  shadowColor,
   class: className,
 } = Astro.props;
 
@@ -26,14 +30,21 @@ const defaultRotation: Record<string, number> = {
 };
 
 const angle = rotate ?? defaultRotation[shape];
+
+// If only borderColor is given, the shadow matches it by default — pass shadowColor to override independently.
+const resolvedShadowColor = shadowColor ?? borderColor;
+
+const styleVars: Record<string, string> = { '--rotate': `${angle}deg` };
+if (borderColor) styleVars['--box-border-color'] = borderColor;
+if (resolvedShadowColor) styleVars['--box-shadow-color'] = resolvedShadowColor;
 ---
 
 <div
   class:list={['wavy-box', `shape-${shape}`, `tone-${tone}`, className]}
-  style={{ '--rotate': `${angle}deg` }}
+  style={styleVars}
 >
   {leaves && <LeafAccent corner="tl" rotate={-15} />}
-  {leaves && <LeafAccent corner="br" color="var(--color-mist)" rotate={20} />}
+  {leaves && <LeafAccent corner="br" color="var(--logo-orange)" rotate={20} />}
   <div class="wavy-box-inner">
     <slot />
   </div>
@@ -42,8 +53,8 @@ const angle = rotate ?? defaultRotation[shape];
 <style>
   .wavy-box {
     position: relative;
-    border: var(--border-thick) solid var(--color-ink);
-    box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-ink);
+    border: var(--border-thick) solid var(--box-border-color, var(--color-ink));
+    box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--box-shadow-color, var(--color-ink));
     transform: rotate(var(--rotate));
     padding: clamp(1.5rem, 4vw, 2.75rem);
   }
